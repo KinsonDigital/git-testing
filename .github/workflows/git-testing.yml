@@ -10,9 +10,6 @@ on:
   workflow_dispatch:
 
 
-permissions: {}
-
-
 jobs:
   generate_api_docs:
     name: Generate API Docs
