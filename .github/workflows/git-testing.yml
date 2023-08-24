@@ -26,9 +26,6 @@ jobs:
           git config --global user.email "${{ vars.GIT_CONFIG_EMAIL }}";
           git config --global user.name "Velaptor Docs Github Actions - (On behalf of Calvin Wilkinson)";
           
-          # git remote set-url origin https://github.com/${{ vars.ORGANIZATION_NAME }}/${{ vars.PROJECT_NAME }}.git
-          # git remote set-url origin git@github.com:${{ vars.ORGANIZATION_NAME }}/${{ vars.PROJECT_NAME }}.git
-        
           git add *.*;
           git commit --allow-empty -m "Test Commit";
           git push;
