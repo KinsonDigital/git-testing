@@ -1,0 +1,31 @@
+name: GIT TESTING
+
+
+defaults:
+  run:
+    shell: pwsh
+
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  generate_api_docs:
+    name: Generate API Docs
+    runs-on: ubuntu-latest
+    steps:
+      - name:  Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Create Commit
+        run: |
+          git config --global user.email "${{ vars.GIT_CONFIG_EMAIL }}";
+          git config --global user.name "Velaptor Docs Github Actions - (On behalf of Calvin Wilkinson)";
+          
+          # git remote set-url origin https://github.com/${{ vars.ORGANIZATION_NAME }}/${{ vars.PROJECT_NAME }}.git
+          # git remote set-url origin git@github.com:${{ vars.ORGANIZATION_NAME }}/${{ vars.PROJECT_NAME }}.git
+        
+          git add *.*;
+          git commit --allow-empty -m "Test Commit";
+          git push;
