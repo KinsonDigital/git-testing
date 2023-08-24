@@ -29,11 +29,19 @@ jobs:
         with:
           key: "my-cache"
           path: "./test"
+          restore-keys: "my-cache"
     
   print_cached_data:
     name: Print cached data
     runs-on: ubuntu-latest
     steps:
+      - name: Cache New Dir
+        uses: actions/cache@v2
+        with:
+          key: "my-cache"
+          path: "./test"
+          restore-keys: "my-cache"
+
       - name:  Print Cached Data
         run: |
           # Print the contents of the cached directory
