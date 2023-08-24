@@ -1,4 +1,4 @@
-name: GIT TESTING
+name: Cache Testing
 
 
 defaults:
@@ -11,21 +11,30 @@ on:
 
 
 jobs:
-  generate_api_docs:
-    name: Generate API Docs
+  create_and_cache_data:
+    name: Create and cache data
     runs-on: ubuntu-latest
     steps:
-      - name:  Checkout Repo
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.CICD_TOKEN }}
-          persist-credentials: true
-
-      - name: Create Commit
+      - name:  Create File
         run: |
-          git config --global user.email "${{ vars.GIT_CONFIG_EMAIL }}";
-          git config --global user.name "Velaptor Docs Github Actions - (On behalf of Calvin Wilkinson)";
+          # Create a directory
+          New-Item -Path "./test" -ItemType "directory" -Force;
           
-          git add *.*;
-          git commit --allow-empty -m "Test Commit";
-          git push;
+          # Create a file in the previous directory and add the text 'hello-world' to the file
+          New-Item -Path "./test/test-file.txt" -ItemType "file" -Force;
+          Add-Content -Path "./test/test-file.txt" -Value "asdfasdf";    
+
+      - name: Cache New Dir
+        uses: actions/cache@v2
+        with:
+          key: "my-cache"
+          path: "./test"
+    
+  print_cached_data:
+    name: Print cached data
+    runs-on: ubuntu-latest
+    steps:
+      - name:  Print Cached Data
+        run: |
+          # Print the contents of the cached directory
+          Write-Host Get-Content -Path "./test/test-file.txt";
