@@ -28,6 +28,9 @@ jobs:
         run: |
           Write-Host "::notice::Workspace Dir Path: ${{ github.workspace }}";
 
+          Write-Host "::notice::Repo Var: ${{ vars.GIT_CONFIG_EMAIL }}";
+          Write-Host "::notice::Org Var: ${{ vars.ORGANIZATION_NAME }}";
+
           deno run `
             -A `
           "${{ github.workspace }}/.github/cicd/script-run-test.ts";
