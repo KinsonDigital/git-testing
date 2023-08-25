@@ -25,4 +25,4 @@ jobs:
         run: |
           deno run `
             -A `
-          "${{ github.workspace }}/.github/cicd/script-run-tests.ts";
+          "${{ github.workspace }}/.github/cicd/script-run-test.ts";
