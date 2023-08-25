@@ -23,6 +23,8 @@ jobs:
 
       - name:  Run Script
         run: |
+          Write-Host "::notice::Workspace Dir Path: ${{ github.workspace }}";
+
           deno run `
             -A `
           "${{ github.workspace }}/.github/cicd/script-run-test.ts";
