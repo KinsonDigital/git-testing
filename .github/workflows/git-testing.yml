@@ -1,4 +1,4 @@
-name: Cache Testing
+name: Fork PR Testing
 
 
 defaults:
@@ -15,34 +15,13 @@ jobs:
     name: Create and cache data
     runs-on: ubuntu-latest
     steps:
-      - name:  Create File
-        run: |
-          # Create a directory
-          New-Item -Path "./test" -ItemType "directory" -Force;
-          
-          # Create a file in the previous directory and add the text 'hello-world' to the file
-          New-Item -Path "./test/test-file.txt" -ItemType "file" -Force;
-          Add-Content -Path "./test/test-file.txt" -Value "asdfasdf";    
-
-      - name: Cache New Dir
-        uses: actions/cache@v2
+      - name: Set Up Deno
+        uses: denoland/setup-deno@v1
         with:
-          key: "my-cache"
-          path: "./test"
-          restore-keys: "my-cache"
-    
-  print_cached_data:
-    name: Print cached data
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cache New Dir
-        uses: actions/cache@v2
-        with:
-          key: "my-cache"
-          path: "./test"
-          restore-keys: "my-cache"
+          deno-version: v1.35.x
 
-      - name:  Print Cached Data
+      - name:  Run Script
         run: |
-          # Print the contents of the cached directory
-          Write-Host Get-Content -Path "./test/test-file.txt";
+          deno run `
+            -A
+          "${{ github.workspace }}/.github/cicd/script-run-tests.ts";
