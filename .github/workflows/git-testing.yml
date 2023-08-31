@@ -29,12 +29,17 @@ jobs:
 
           $isValidBranch = $branch -match $branchRegEx;
           $stepOutput = "skip=false";
-          
 
           if ($isTriggeredByCommand -eq "true") {
             Write-Host "::notice::The '[run-sync]' command has been invoked.";
-          } elseif ($isTriggeredByPR -and $isValidBranch) {
-            Write-Host "::notice::The PR has been opened from a valid branch.";
+          } elseif ($isTriggeredByPR) {
+            if ($isValidBranch -eq $true) {
+              Write-Host "::notice::The PR has been opened from a valid branch.";
+            } else {
+              $msg = "::warning::The branch `$branch` does not match the regex `$branchRegEx`.";
+              $msg += "Verify that the 'FEATURE_BRANCH_REGEX' org or repo variable is set correctly in the workflow file.";
+              Write-Host $msg;
+            }
           } else {
             Write-Host "::warning::Issue/PR Sync Process Skipped.  Possibly sync command was not exactly '[run-sync]' or incorrect PR head branch.";
             $stepOutput = "skip=true";
