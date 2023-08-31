@@ -31,7 +31,7 @@ jobs:
           $stepOutput = "skip=false";
           
 
-          if ($isTriggeredByCommand) {
+          if ($isTriggeredByCommand -eq "true") {
             Write-Host "::notice::The '[run-sync]' command has been invoked.";
           } elseif ($isTriggeredByPR -and $isValidBranch) {
             Write-Host "::notice::The PR has been opened from a valid branch.";
