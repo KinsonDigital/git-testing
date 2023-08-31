@@ -29,7 +29,6 @@ jobs:
 
           $isValidBranch = $branch -match $branchRegEx;
           $stepOutput = "skip=false";
-          
 
           if ($isTriggeredByCommand -eq "true") {
             Write-Host "::notice::The '[run-sync]' command has been invoked.";
