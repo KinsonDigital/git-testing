@@ -36,8 +36,8 @@ jobs:
             if ($isValidBranch -eq $true) {
               Write-Host "::notice::The PR has been opened from a valid branch.";
             } else {
-              $msg = "::warning::The branch `$branch` does not match the regex `$branchRegEx`.";
-              $msg += "Verify that the 'FEATURE_BRANCH_REGEX' org or repo variable is set correctly in the workflow file.";
+              $msg = "::warning::The branch" + " `$branch` " + "does not match the regex `$branchRegEx`.";
+              $msg += "  Verify that the 'FEATURE_BRANCH_REGEX' org or repo variable is set correctly.";
               Write-Host $msg;
             }
           } else {
