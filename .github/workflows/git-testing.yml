@@ -33,7 +33,7 @@ jobs:
 
           if ($isTriggeredByCommand) {
             Write-Host "::notice::The '[run-sync]' command has been invoked.";
-          } else if ($isTriggeredByPR -and $isValidBranch) {
+          } elseif ($isTriggeredByPR -and $isValidBranch) {
             Write-Host "::notice::The PR has been opened from a valid branch.";
           } else {
             Write-Host "::warning::Issue/PR Sync Process Skipped.  Possibly sync command was not exactly '[run-sync]' or incorrect PR head branch.";
