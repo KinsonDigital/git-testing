@@ -22,7 +22,7 @@ jobs:
         id: should-skip
         run: |
           $isTriggeredByCommand = "${{ github.event_name == 'issue_comment' && contains(github.event.comment.body, '[run-sync]') }}";
-          $isTriggeredByPR = "${{ github.event_name == 'pull_request'}}";
+          $isTriggeredByPR = "${{ github.event_name == 'pull_request_target'}}";
 
           $branch = "${{ github.event.pull_request.head.ref }}";
           $branchRegEx = "${{ vars.FEATURE_BRANCH_REGEX }}";
@@ -48,12 +48,12 @@ jobs:
         with:
           deno-version: v1.x
 
-      - name: Sync
+      - name: Run Sync
         if: ${{ steps.should-skip.outputs.skip == 'false' }}
         run: |
           $eventName = "${{ github.event_name }}";
           $scriptUrl = "${{ vars.SCRIPT_BASE_URL }}/${{ vars.CICD_SCRIPTS_VERSION }}/${{ vars.SCRIPT_RELATIVE_DIR_PATH }}/sync-issue-to-pr.ts";
-          $issueOrPrNumber = $eventName -eq "pull_request" ? "${{ github.event.number }}" : "${{ github.event.issue.number }}";
+          $issueOrPrNumber = $eventName -eq "pull_request_target" ? "${{ github.event.number }}" : "${{ github.event.issue.number }}";
           
           Write-Host "::notice::Event Type: $eventName";
           Write-Host "::notice::Organization Name: ${{ vars.ORGANIZATION_NAME }}";
