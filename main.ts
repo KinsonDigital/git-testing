@@ -1,16 +1,15 @@
 
 Deno.serve((req) => {
 
-    // Get the query parameters from the incoming deno request
-    const params = new URLSearchParams(req.url.split("?")[1]);
+    // // Get the query parameters from the incoming deno request
+    // const params = new URLSearchParams(req.url.split("?")[1]);
 
-    const reqParams: string[] = [];
+    // const reqParams: string[] = [];
 
-    params.forEach((value, key) => {
-        reqParams.push(`${key}: ${value}`);
-    });
+    // params.forEach((value, key) => {
+    //     reqParams.push(`${key}: ${value}`);
+    // });
 
-    const result = reqParams.join("\n");
-
-    return new Response(result);
+    // const result = reqParams.join("\n");
+    return new Response("Hello Deno");
 });
