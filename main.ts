@@ -1,15 +1,15 @@
+import { TagClient } from "./deps.ts";
 
-Deno.serve((req) => {
+Deno.serve(async (req) => {
 
-    // // Get the query parameters from the incoming deno request
-    // const params = new URLSearchParams(req.url.split("?")[1]);
+    const token = undefined;
+    const tagClient: TagClient = new TagClient("KinsonDigital", "Velaptor", token);
+    
+    const tags = await tagClient.getAllTags();
 
-    // const reqParams: string[] = [];
+    const tagVersions = tags.map((tag) => tag.name);
 
-    // params.forEach((value, key) => {
-    //     reqParams.push(`${key}: ${value}`);
-    // });
+    const body: BodyInit = JSON.stringify(tagVersions);
 
-    // const result = reqParams.join("\n");
-    return new Response("Hello Deno");
+    return new Response(body);
 });
