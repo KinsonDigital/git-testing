@@ -2,7 +2,7 @@ import { TagClient } from "./deps.ts";
 
 Deno.serve(async (req) => {
 
-    const token = undefined;
+    const token = Deno.args[0];
     const tagClient: TagClient = new TagClient("KinsonDigital", "Velaptor", token);
     
     const tags = await tagClient.getAllTags();
